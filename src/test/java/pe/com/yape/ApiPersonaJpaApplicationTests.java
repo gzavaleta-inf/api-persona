@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 import org.springframework.web.reactive.function.client.WebClient;
-import pe.com.yape.business.usecase.PersonaServiceImpl;
+import pe.com.yape.business.usecase.TransactionServiceImpl;
 import pe.com.yape.controller.util.Utils;
 import pe.com.yape.domain.Persona;
 import pe.com.yape.domain.dao.IPersistence;
@@ -26,7 +26,7 @@ public class ApiPersonaJpaApplicationTests {
 	private WebClient webClient;
 
 	@InjectMocks
-	private PersonaServiceImpl personaService;
+	private TransactionServiceImpl personaService;
 
 	@BeforeEach
 	public void setUp() {
