@@ -10,35 +10,35 @@ pipeline {
         name_final = "${name_container}${tag_imagen}${puerto_imagen}"
     }
     stages {
-        stage('stop/rm') {
-            when {
-                expression {
-                    DOCKER_EXIST = sh(returnStdout: true, script: 'echo "$(docker ps -q --filter name:${name_final})"')
-                    return DOCKER_EXIST != ''
+        steps {
+            stage('stop/rm') {
+                when {
+                    expression {
+                        DOCKER_EXIST = sh(returnStdout: true, script: 'echo "$(docker ps -q --filter name:${name_final})"')
+                        return DOCKER_EXIST != ''
+                    }
                 }
             }
-        steps {
             script {
                 sh '''
                 docker stop ${name_final}
                 '''
             }
-        }
-        }
-        stage('build') {
-            steps {
-                script {
-                    sh '''
-                    docker build . -t ${name_imagen}:${tag_imagen}
-                    '''
-                }
-            }
-            stage('run'){
+            stage('build') {
                 steps {
                     script {
                         sh '''
-                        docker run -dp ${puerto_imagen}:8091 --name ${name_final} ${name_imagen}:${tag_imagen}
+                        docker build . -t ${name_imagen}:${tag_imagen}
                         '''
+                    }
+                }
+                stage('run'){
+                    steps {
+                        script {
+                            sh '''
+                            docker run -dp ${puerto_imagen}:8091 --name ${name_final} ${name_imagen}:${tag_imagen}
+                            '''
+                        }
                     }
                 }
             }
