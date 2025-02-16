@@ -10,27 +10,27 @@ pipeline {
         stage('stop') {
             when {
                 expression {
-                    DOCKER_EXIST = bat(returnStdout: true, script: 'echo "$(docker ps -q --filter name:${name_container})"')
+                    DOCKER_EXIST = bat(returnStdout: true, script: "docker ps -q --filter name:${name_container}")
                     return DOCKER_EXIST != ''
                 }
             }
             steps {
                 script {
-                    bat(script: 'docker stop ${name_container}')
+                    bat(script: "docker stop ${name_container}")
                 }
             }
         }
         stage('build') {
             steps {
                 script {
-                    bat(script: 'docker build -t ${name_imagen}:${tag_imagen} .')
+                    bat(script: "docker build -t ${name_imagen}:${tag_imagen} .")
                 }
             }
         }
         stage('run'){
             steps {
                 script {
-                    bat(script: 'docker run -dp ${puerto_imagen}:8090 --name ${name_container} ${name_imagen}:${tag_imagen}')
+                    bat(script: "docker run -dp ${puerto_imagen}:8090 --name ${name_container} ${name_imagen}:${tag_imagen}")
                 }
             }
         }
