@@ -1,9 +1,9 @@
 pipeline {
     agent any
     parameters {
-        string(name:'name_container', defaultValue:'container-persona-dev', description:'Nombre del contenedor')
-        string(name:'name_imagen', defaultValue:'persona-dev', description:'Nombre de la imagen')
-        string(name:'tag_imagen', defaultValue:'latest', description:'Etiqueta de la imagen')
+        string(name:'name_container', defaultValue:'container-api-persona', description:'Nombre del contenedor')
+        string(name:'name_imagen', defaultValue:'api-persona', description:'Nombre de la imagen')
+        string(name:'tag_imagen', defaultValue:'1.0', description:'Etiqueta de la imagen')
         string(name:'puerto_imagen', defaultValue:'8090', description:'Puerto a publicar')
     }
     environment {
