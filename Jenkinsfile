@@ -17,8 +17,6 @@ pipeline {
                     return DOCKER_EXIST != ''
                 }
             }
-        }
-        stage('stop'){
             steps {
                 script {
                     sh '''
