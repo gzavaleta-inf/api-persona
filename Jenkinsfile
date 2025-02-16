@@ -35,13 +35,13 @@ pipeline {
                     '''
                 }
             }
-            stage('run'){
-                steps {
-                    script {
-                        sh '''
-                        docker run -dp ${puerto_imagen}:8091 --name ${name_final} ${name_imagen}:${tag_imagen}
-                        '''
-                    }
+        }
+        stage('run'){
+            steps {
+                script {
+                    sh '''
+                    docker run -dp ${puerto_imagen}:8091 --name ${name_final} ${name_imagen}:${tag_imagen}
+                    '''
                 }
             }
         }
