@@ -10,7 +10,7 @@ pipeline {
         stage('stop') {
             when {
                 expression {
-                    DOCKER_EXIST = bat(returnStdout: true, script: "docker ps -q --filter name:${name_container}")
+                    DOCKER_EXIST = bat(returnStdout: true, script: "docker ps -q --filter name=${name_container}")
                     return DOCKER_EXIST != ''
                 }
             }
