@@ -16,18 +16,14 @@ pipeline {
             }
             steps {
                 script {
-                    bat '''
-                    docker stop ${name_container}
-                    '''
+                    bat(script: 'echo docker stop ${name_container}')
                 }
             }
         }
         stage('build') {
             steps {
                 script {
-                    bat '''
-                    docker build . -t ${name_imagen}:${tag_imagen}
-                    '''
+                    bat(script: 'echo docker build . -t ${name_imagen}:${tag_imagen}')
                 }
             }
         }
