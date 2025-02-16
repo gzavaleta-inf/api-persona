@@ -18,10 +18,12 @@ pipeline {
                 }
             }
         }
-        script {
-            sh '''
-            docker stop ${name_final}
-            '''
+        stage('stop'){
+            script {
+                sh '''
+                docker stop ${name_final}
+                '''
+            }
         }
         stage('build') {
             steps {
