@@ -6,21 +6,18 @@ pipeline {
         string(name:'tag_imagen', defaultValue:'1.0', description:'Etiqueta de la imagen')
         string(name:'puerto_imagen', defaultValue:'8090', description:'Puerto a publicar')
     }
-    environment {
-        name_final = '${name_container}${tag_imagen}${puerto_imagen}'
-    }
     stages {
         stage('stop/rm') {
             when {
                 expression {
-                    DOCKER_EXIST = bat(returnStdout: true, script: 'echo "$(docker ps -q --filter name:${name_final})"')
+                    DOCKER_EXIST = bat(returnStdout: true, script: 'echo "$(docker ps -q --filter name:${name_container})"')
                     return DOCKER_EXIST != ''
                 }
             }
             steps {
                 script {
                     bat '''
-                    docker stop ${name_final}
+                    docker stop ${name_container}
                     '''
                 }
             }
@@ -38,7 +35,7 @@ pipeline {
             steps {
                 script {
                     bat '''
-                    docker run -dp ${puerto_imagen}:8091 --name ${name_final} ${name_imagen}:${tag_imagen}
+                    docker run -dp ${puerto_imagen}:8091 --name ${name_container} ${name_imagen}:${tag_imagen}
                     '''
                 }
             }
