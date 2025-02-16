@@ -13,13 +13,13 @@ pipeline {
         stage('stop/rm') {
             when {
                 expression {
-                    DOCKER_EXIST = sh(returnStdout: true, script: 'echo "$(docker ps -q --filter name:${name_final})"')
+                    DOCKER_EXIST = bat(returnStdout: true, script: 'echo "$(docker ps -q --filter name:${name_final})"')
                     return DOCKER_EXIST != ''
                 }
             }
             steps {
                 script {
-                    sh '''
+                    bat '''
                     docker stop ${name_final}
                     '''
                 }
@@ -28,7 +28,7 @@ pipeline {
         stage('build') {
             steps {
                 script {
-                    sh '''
+                    bat '''
                     docker build . -t ${name_imagen}:${tag_imagen}
                     '''
                 }
@@ -37,7 +37,7 @@ pipeline {
         stage('run'){
             steps {
                 script {
-                    sh '''
+                    bat '''
                     docker run -dp ${puerto_imagen}:8091 --name ${name_final} ${name_imagen}:${tag_imagen}
                     '''
                 }
