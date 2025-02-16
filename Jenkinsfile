@@ -19,10 +19,12 @@ pipeline {
             }
         }
         stage('stop'){
-            script {
-                sh '''
-                docker stop ${name_final}
-                '''
+            steps {
+                script {
+                    sh '''
+                    docker stop ${name_final}
+                    '''
+                }
             }
         }
         stage('build') {
