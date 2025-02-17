@@ -20,7 +20,21 @@ pipeline {
                 }
             }
         }
-        stage('build') {
+        stage('Checkout') {
+            steps {
+                script {
+                    bat(script: "checkout scm")
+                }
+            }
+        }
+        stage('Build') {
+            steps {
+                script {
+                    bat(script: "mvn clean install")
+                }
+            }
+        }
+        stage('docker build') {
             steps {
                 script {
                     bat(script: "docker build -t ${name_imagen}:${tag_imagen} .")
