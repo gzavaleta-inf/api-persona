@@ -11,12 +11,12 @@ pipeline {
             when {
                 expression {
                     DOCKER_EXIST = bat(returnStdout: true, script: "docker ps -a -q --filter name=${name_container}")
-
-                    if (DOCKER_EXIST != '') {
-                        bat(script: "docker rm -f ${name_container}")
-                    }
-
-                    return true
+                    return DOCKER_EXIST != ''
+                }
+            }
+            steps {
+                script {
+                    bat(script: "docker rm -f ${name_container}")
                 }
             }
         }
