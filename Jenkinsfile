@@ -23,7 +23,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    bat(script: "checkout scm")
+                    checkout scm
                 }
             }
         }
